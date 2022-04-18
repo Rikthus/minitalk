@@ -1,5 +1,5 @@
 NAME_CLIENT	:=	client
-NAME_SERVEUR	:=	serveur
+NAME_SERVER	:=	server
 
 CC	:=	gcc
 CSAN	:=	fsanitize=address -g3
@@ -12,25 +12,25 @@ DIR_INCS	:=	includes
 DIR_LIBFT	:=	libft_me
 
 LST_SRCS_CLIENT	:=	client.c
-LST_SRCS_SERVEUR	:=	serveur.c
+LST_SRCS_SERVER	:=	server.c
 LST_OBJS_CLIENT	:=	$(LST_SRCS_CLIENT:.c=.o)
-LST_OBJS_SERVEUR	:=	$(LST_SRCS_SERVEUR:.c=.o)
+LST_OBJS_SERVER	:=	$(LST_SRCS_SERVER:.c=.o)
 LST_INCS	:=	minitalk.h
 
 SRCS_CLIENT	:=		$(addprefix $(DIR_SRCS)/,$(LST_SRCS_CLIENT))
-SRCS_SERVEUR	:=	$(addprefix $(DIR_SRCS)/,$(LST_SRCS_SERVEUR))
+SRCS_SERVER	:=	$(addprefix $(DIR_SRCS)/,$(LST_SRCS_SERVER))
 OBJS_CLIENT	:=		$(addprefix $(DIR_OBJS)/,$(LST_OBJS_CLIENT))
-OBJS_SERVEUR	:=	$(addprefix $(DIR_OBJS)/,$(LST_OBJS_SERVEUR))
+OBJS_SERVER	:=	$(addprefix $(DIR_OBJS)/,$(LST_OBJS_SERVER))
 INCS	:=			$(addprefix $(DIR_INCS)/,$(LST_INCS))
 
 AR_LIBFT	:=	$(DIR_LIBFT)/libft.a
 
-all	:	$(NAME_CLIENT) $(NAME_SERVEUR)
+all	:	$(NAME_CLIENT) $(NAME_SERVER)
 
 $(NAME_CLIENT)	:	$(AR_LIBFT) $(OBJS_CLIENT)
 					$(CC) $(CFLAGS) $^ -o $@
 
-$(NAME_SERVEUR)	:	$(AR_LIBFT) $(OBJS_SERVEUR)
+$(NAME_SERVER)	:	$(AR_LIBFT) $(OBJS_SERVER)
 					$(CC) $(CFLAGS) $^ -o $@
 
 $(DIR_OBJS)/%.o	:	$(DIR_SRCS)/%.c $(INCS) Makefile | $(DIR_OBJS)
@@ -46,7 +46,7 @@ clean	:
 			rm -rf $(DIR_OBJS)
 
 fclean	:	clean
-			rm -rf $(NAME_CLIENT) $(NAME_SERVEUR)
+			rm -rf $(NAME_CLIENT) $(NAME_SERVER)
 
 re	:	fclean all
 
