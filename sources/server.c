@@ -6,7 +6,7 @@
 /*   By: maxperei <maxperei@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 22:47:15 by tulipe            #+#    #+#             */
-/*   Updated: 2022/04/21 11:37:59 by maxperei         ###   ########lyon.fr   */
+/*   Updated: 2022/04/21 13:27:22 by maxperei         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@ static	char	*ft_str_join(char *s1, int *byte)
 	char	*join;
 	int		i;
 
-	join = malloc((ft_strlen(s1) + 2) * sizeof(*join));
+	if (!s1)
+		join = malloc(2 * sizeof(*join));
+	else
+		join = malloc((ft_strlen(s1) + 2) * sizeof(*join));
 	if (!join)
 		return (NULL);
 	i = 0;
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		join[i] = s1[i];
 		i++;
@@ -48,6 +51,7 @@ static	char	*ft_str_join(char *s1, int *byte)
 	join[i] = make_char(byte);
 	i++;
 	join[i] = '\0';
+	write(1, join, ft_strlen(join));
 	free(s1);
 	return (join);
 }
@@ -59,23 +63,25 @@ void	handler(int sigtype)
 
 	if (i < 8)
 	{
+		write(1, "1\n", 2);
 		if (sigtype == SIGUSR1)
 			byte[i] = 0;
 		else if (sigtype == SIGUSR2)
 			byte[i] = 1;
 		i++;
 	}
-	else
+	if (i == 8)
 	{
 		msg_str = ft_str_join(msg_str, byte);
 		if (!msg_str)
 			return ;
+		write(1, "9\n", 2);
+		i = 0;
 		if (!make_char(byte))
 		{
 			write(1, msg_str, ft_strlen(msg_str));
 			msg_str = ft_bzero(msg_str, ft_strlen(msg_str));
 		}
-		i = 0;
 	}
 }
 
