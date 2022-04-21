@@ -17,11 +17,11 @@ LST_OBJS_CLIENT	:=	$(LST_SRCS_CLIENT:.c=.o)
 LST_OBJS_SERVER	:=	$(LST_SRCS_SERVER:.c=.o)
 LST_INCS	:=	minitalk.h
 
-SRCS_CLIENT	:=		$(addprefix $(DIR_SRCS)/,$(LST_SRCS_CLIENT))
+SRCS_CLIENT	:=	$(addprefix $(DIR_SRCS)/,$(LST_SRCS_CLIENT))
 SRCS_SERVER	:=	$(addprefix $(DIR_SRCS)/,$(LST_SRCS_SERVER))
-OBJS_CLIENT	:=		$(addprefix $(DIR_OBJS)/,$(LST_OBJS_CLIENT))
+OBJS_CLIENT	:=	$(addprefix $(DIR_OBJS)/,$(LST_OBJS_CLIENT))
 OBJS_SERVER	:=	$(addprefix $(DIR_OBJS)/,$(LST_OBJS_SERVER))
-INCS	:=			$(addprefix $(DIR_INCS)/,$(LST_INCS))
+INCS		:=	$(addprefix $(DIR_INCS)/,$(LST_INCS))
 
 AR_LIBFT	:=	$(DIR_LIBFT)/libft.a
 
@@ -50,4 +50,4 @@ fclean	:	clean
 
 re	:	fclean all
 
-.PHONY	:	all clean fclean re 
+.PHONY	:	all clean fclean re

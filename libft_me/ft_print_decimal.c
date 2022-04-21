@@ -6,11 +6,11 @@
 /*   By: maxperei <maxperei@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:45:41 by maxperei          #+#    #+#             */
-/*   Updated: 2021/11/18 16:48:30 by maxperei         ###   ########lyon.fr   */
+/*   Updated: 2022/04/21 06:53:47 by maxperei         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 static	void	ft_putnbr(int nbr)
 {

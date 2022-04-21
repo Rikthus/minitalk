@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_search_type.c                                   :+:      :+:    :+:   */
+/*   ft_printf_search_type.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxperei <maxperei@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 16:46:23 by maxperei          #+#    #+#             */
-/*   Updated: 2021/11/21 17:31:42 by maxperei         ###   ########lyon.fr   */
+/*   Updated: 2022/04/21 06:54:33 by maxperei         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int	ft_search_type(va_list ap, const char *fmt)
 {

@@ -6,7 +6,7 @@
 /*   By: maxperei <maxperei@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 15:29:48 by tulipe            #+#    #+#             */
-/*   Updated: 2022/04/18 11:37:35 by maxperei         ###   ########lyon.fr   */
+/*   Updated: 2022/04/21 07:29:57 by maxperei         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	send_signal(pid_t server_pid, char *str)
 		j = 0;
 		while (j < 8)
 		{
-			kill(server_pid, SIGUSR1 + ((str[i] >> j) & 1));
+			kill(server_pid, SIGUSR1 + ((str[i] >> (7 - j)) & 1));
 			j++;
 			usleep(100);
 		}
@@ -40,5 +40,5 @@ int main(int argc, char **argv)
 {
 	if (argc < 3)
 		return (1);
-	send_signal(argv[1], argv[2]);
+	send_signal(ft_atoi(argv[1]), argv[2]);
 }
