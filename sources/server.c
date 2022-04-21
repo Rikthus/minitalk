@@ -6,64 +6,71 @@
 /*   By: maxperei <maxperei@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 22:47:15 by tulipe            #+#    #+#             */
-/*   Updated: 2022/04/21 09:28:55 by maxperei         ###   ########lyon.fr   */
+/*   Updated: 2022/04/21 11:37:59 by maxperei         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
-char	*msg_str = "\0";
+char	*msg_str = NULL;
 
-static	char	*ft_str_join(char *s1, char *s2)
+static	char	make_char(int *byte)
+{
+	int		i;
+	char	c;
+
+	i = 7;
+	c = 0;
+	if (byte[0] == 1)
+		c = 1;
+	while (i > 0)
+	{
+		c += 2 * (2 * i);
+		i--;
+	}
+	return (c);
+}
+
+static	char	*ft_str_join(char *s1, int *byte)
 {
 	char	*join;
 	int		i;
-	int		j;
 
-	join = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(*join));
+	join = malloc((ft_strlen(s1) + 2) * sizeof(*join));
 	if (!join)
 		return (NULL);
 	i = 0;
-	j = 0;
 	while (s1[i])
 	{
 		join[i] = s1[i];
 		i++;
 	}
-	while (s2[j])
-	{
-		join[i + j] = s2[j];
-		j++;
-	}
-	join[i + j] = '\0';
-	if (*s1 != '\0')
-		free(s1);
-	ft_printf("%s\n", join);
+	join[i] = make_char(byte);
+	i++;
+	join[i] = '\0';
+	free(s1);
 	return (join);
 }
 
 void	handler(int sigtype)
 {
-	static	char	c = '\0';
-	static	int		i = 0;
+	static	int	byte[8] = {0};
+	static	int	i = 0;
 
 	if (i < 8)
 	{
-		c = (int)c << 1;
 		if (sigtype == SIGUSR1)
-			c = c^0;
+			byte[i] = 0;
 		else if (sigtype == SIGUSR2)
-			c = c^1;
+			byte[i] = 1;
 		i++;
 	}
 	else
 	{
-
-		msg_str = ft_str_join(msg_str, &c);
+		msg_str = ft_str_join(msg_str, byte);
 		if (!msg_str)
 			return ;
-		c = (int)c >> 7;
-		if (i == 8 && c == '\0')
+		if (!make_char(byte))
 		{
 			write(1, msg_str, ft_strlen(msg_str));
 			msg_str = ft_bzero(msg_str, ft_strlen(msg_str));
