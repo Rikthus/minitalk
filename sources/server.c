@@ -6,13 +6,11 @@
 /*   By: maxperei <maxperei@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 22:47:15 by tulipe            #+#    #+#             */
-/*   Updated: 2022/04/21 14:32:02 by maxperei         ###   ########lyon.fr   */
+/*   Updated: 2022/05/11 11:06:58 by maxperei         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
-
-char	*msg_str = NULL;
 
 static	int	ft_pow(int nb, int pow)
 {
@@ -71,8 +69,8 @@ static	char	*ft_str_join(char *s1, int *byte)
 
 void	handler(int sigtype)
 {
-	static	int	byte[8] = {0};
-	static	int	i = 0;
+	static int	byte[8] = {0};
+	static int	i = 0;
 
 	if (i < 8)
 	{
@@ -84,16 +82,15 @@ void	handler(int sigtype)
 	}
 	if (i == 8)
 	{
-		msg_str = ft_str_join(msg_str, byte);
-		if (!msg_str)
+		g_msg_str = ft_str_join(g_msg_str, byte);
+		if (!g_msg_str)
 			return ;
 		i = 0;
 		if ((int)make_char(byte) == 0)
 		{
-			write(1, msg_str, ft_strlen(msg_str));
-			write(1, "\n", 1);
-			free(msg_str);
-			msg_str = NULL;
+			write(1, g_msg_str, ft_strlen(g_msg_str));
+			free(g_msg_str);
+			g_msg_str = NULL;
 		}
 	}
 }
@@ -111,5 +108,7 @@ int	main(int argc, char **argv)
 	action.sa_flags = SA_RESTART;
 	sigaction(SIGUSR1, &action, NULL);
 	sigaction(SIGUSR2, &action, NULL);
-	while (1);
+	while (1)
+	{
+	}
 }

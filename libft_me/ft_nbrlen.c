@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_nbrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tulipe <tulipe@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: maxperei <maxperei@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 21:36:16 by tulipe            #+#    #+#             */
-/*   Updated: 2022/04/16 21:38:16 by tulipe           ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 17:30:34 by maxperei         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_nbrlen(int nbr)
+int	ft_nbrlen(int nbr)
 {
-    int len;
+	int	len;
 
-    if (nbr == 0)
-        return (1);
-    len = 0;
-    while (nbr != 0)
-    {
-        nbr /= 10;
-        len++;
-    }
-    return (len);
+	if (nbr == 0)
+		return (1);
+	len = 0;
+	while (nbr != 0)
+	{
+		nbr /= 10;
+		len++;
+	}
+	return (len);
 }

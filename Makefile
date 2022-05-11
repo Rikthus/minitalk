@@ -2,7 +2,7 @@ NAME_CLIENT	:=	client
 NAME_SERVER	:=	server
 
 CC	:=	gcc
-CSAN	:=	fsanitize=address -g3
+CSAN	:=	-fsanitize=address -g3
 CFLAGS	:=	-Wall -Wextra -Werror
 
 DIR_SRCS	:=	sources
@@ -25,7 +25,7 @@ INCS		:=	$(addprefix $(DIR_INCS)/,$(LST_INCS))
 
 AR_LIBFT	:=	$(DIR_LIBFT)/libft.a
 
-all	:	$(NAME_CLIENT) $(NAME_SERVER)
+all	:	makelibft $(NAME_CLIENT) $(NAME_SERVER)
 
 $(NAME_CLIENT)	:	$(AR_LIBFT) $(OBJS_CLIENT)
 					$(CC) $(CFLAGS) $^ -o $@
@@ -36,18 +36,25 @@ $(NAME_SERVER)	:	$(AR_LIBFT) $(OBJS_SERVER)
 $(DIR_OBJS)/%.o	:	$(DIR_SRCS)/%.c $(INCS) Makefile | $(DIR_OBJS)
 					$(CC) $(CFLAGS) -I $(DIR_INCS) -c $< -o $@
 
-$(AR_LIBFT)	:
-				$(MAKE) -C $(DIR_LIBFT)
 
 $(DIR_OBJS)	:
 				mkdir -p $(DIR_OBJS)
 
+$(AR_LIBFT) : makelibft
+
+makelibft	:
+				$(MAKE) -C $(DIR_LIBFT)
+
 clean	:
 			rm -rf $(DIR_OBJS)
+			$(MAKE) clean -C $(DIR_LIBFT)
 
 fclean	:	clean
 			rm -rf $(NAME_CLIENT) $(NAME_SERVER)
+			$(MAKE) fclean -C $(DIR_LIBFT)
 
-re	:	fclean all
+re	:
+		$(MAKE) fclean
+		$(MAKE) all
 
-.PHONY	:	all clean fclean re
+.PHONY	:	all clean fclean re makelibft
